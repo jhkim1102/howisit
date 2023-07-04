@@ -38,10 +38,11 @@
             <div class="menu_main">
                <ul>
                   <li class="active"><a href="/">홈</a></li>
-                  <li><a href="/cart">찜한목록</a></li>
-                  <li><a href="/orders">예약내역</a></li>
+                  <li><a href="/cart" sec:authorize="isAuthenticated()">찜한목록</a></li>
+                  <li><a href="/orders" sec:authorize="isAuthenticated()">예약내역</a></li>
                   <li><a href="/members/qa">문의사항</a></li>
-                  <li><a href="/members/Login">로그인</a></li>
+                  <li><a href="/members/login" sec:authorize="isAnonymous()">로그인</a></li>
+                  <li><a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a></li>
                </ul>
             </div>
          </div>
