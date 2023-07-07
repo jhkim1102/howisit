@@ -2,6 +2,7 @@ package com.howisit.entity;
 
 import com.howisit.constant.ItemSellStatus;
 import com.howisit.constant.ItemType;
+import com.howisit.dto.ItemFormDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,11 +45,21 @@ public class Item {
 	@Enumerated(EnumType.STRING) //enum의 이름을 DB에 저장
 	private ItemSellStatus itemSellStatus; //판매상태 (sell,sold out) --> item_Sell_Status
 	
-	@Column(nullable = false)
-	private String location; //지역명 --> location
+	//item 엔티티 수정
+	public void updateItem(ItemFormDto itemFormDto) {
+		this.itemNm = itemFormDto.getItemNm();
+		this.price = itemFormDto.getPrice();
+		this.stockNumber = itemFormDto.getStockNumber();
+		this.itemDetail = itemFormDto.getItemDetail();
+		this.itemSellStatus = itemFormDto.getItemSellStatus();
+	}
 	
-	@Enumerated(EnumType.STRING)
-	private ItemType itemType; // 숙박여부(rent,stay) --> item_Type
-	
+
+	/*
+	 * @Column(nullable = false) private String location; //지역명 --> location
+	 * 
+	 * @Enumerated(EnumType.STRING) private ItemType itemType; // 숙박여부(rent,stay)
+	 * --> item_Type
+	 */	
 	
 }
