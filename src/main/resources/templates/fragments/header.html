@@ -37,6 +37,8 @@
             <div class="logo"><a href="/"><img src="/images/howisit.jpg"></a></div>
             <div class="menu_main">
                <ul>
+                  <li><a href="/admin/item/new" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">상품등록</a></li>
+                  <li><a href="/admin/items" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">상품관리</a></li>
                   <li class="active"><a href="/">홈</a></li>
                   <li><a href="/cart" sec:authorize="isAuthenticated()">찜한목록</a></li>
                   <li><a href="/orders" sec:authorize="isAuthenticated()">예약내역</a></li>

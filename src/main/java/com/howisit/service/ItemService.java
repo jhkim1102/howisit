@@ -11,11 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.howisit.dto.ItemFormDto;
 import com.howisit.dto.ItemImgDto;
+import com.howisit.dto.ItemRankDto;
 import com.howisit.dto.ItemSearchDto;
+import com.howisit.dto.MainItemDto;
 import com.howisit.entity.Item;
 import com.howisit.entity.ItemImg;
 import com.howisit.respository.ItemImgRepository;
 import com.howisit.respository.ItemRepository;
+
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -111,6 +114,18 @@ public class ItemService {
 		Page<Item> itemPage= itemRepository.getAdminItemPage(itemSearchDto, pageable);
 		return itemPage;
 	}
+	
+	@Transactional(readOnly = true)
+	public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+		Page<MainItemDto> mainItemPage = itemRepository.getMainItemPage(itemSearchDto, pageable);
+		return mainItemPage;
+	}
+	
+	@Transactional(readOnly = true)
+	public List<ItemRankDto> getItemRankList(){
+		return itemRepository.getItemRankList();
+	}
+	
 
 }
 

@@ -3,6 +3,7 @@ package com.howisit.entity;
 import com.howisit.constant.ItemSellStatus;
 import com.howisit.constant.ItemType;
 import com.howisit.dto.ItemFormDto;
+import com.howisit.exception.OutOfStockException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,6 +46,12 @@ public class Item {
 	@Enumerated(EnumType.STRING) //enum의 이름을 DB에 저장
 	private ItemSellStatus itemSellStatus; //판매상태 (sell,sold out) --> item_Sell_Status
 	
+	/*
+	 * @Column(nullable = false) private String location; //지역명 --> location
+	 * 
+	 * @Enumerated(EnumType.STRING) private ItemType itemType; // 숙박여부(rent,stay)
+	 * --> item_Type
+	 */	
 	//item 엔티티 수정
 	public void updateItem(ItemFormDto itemFormDto) {
 		this.itemNm = itemFormDto.getItemNm();
@@ -54,12 +61,23 @@ public class Item {
 		this.itemSellStatus = itemFormDto.getItemSellStatus();
 	}
 	
+	//재고를 감소시킨다.
+	public void removeStock(int stockNumber) {
+		int restStock = this.stockNumber - stockNumber; //남은 재고 수량
+		
+		if(restStock < 0) {
+			throw new OutOfStockException("상품의 재고가 부족합니다. "
+					+ "현재 재고수량: " + this.stockNumber);
+		}
+		
+		this.stockNumber = restStock; //남은 재고수량 반영
+	}
+	
+	//재고를 증가
+	public void addStock(int stockNumber) {
+		this.stockNumber += stockNumber;
+	}
+	
 
-	/*
-	 * @Column(nullable = false) private String location; //지역명 --> location
-	 * 
-	 * @Enumerated(EnumType.STRING) private ItemType itemType; // 숙박여부(rent,stay)
-	 * --> item_Type
-	 */	
 	
 }
